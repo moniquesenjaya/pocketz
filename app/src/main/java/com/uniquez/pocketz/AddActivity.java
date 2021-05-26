@@ -100,7 +100,29 @@ public class AddActivity extends AppCompatActivity {
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(spinnerArrayAdapter);
 
-       
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    selectedItemText = (String) parent.getItemAtPosition(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                ItemModel itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), selectedItemText, storageDetails.getText().toString());
+            }
+        });
 
     }
 }
