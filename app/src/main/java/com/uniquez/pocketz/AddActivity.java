@@ -2,6 +2,7 @@ package com.uniquez.pocketz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,9 +17,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -31,6 +35,7 @@ public class AddActivity extends AppCompatActivity {
     Button addButton = findViewById(R.id.addButton);
     final Spinner spinner = (Spinner) findViewById(R.id.categoryList);
     String selectedItemText;
+    Date convertDate;
 
     // Initializing a String Array for drop down list (spinner)
     String[] category = new String[]{
@@ -118,9 +123,25 @@ public class AddActivity extends AppCompatActivity {
         });
 
         addButton.setOnClickListener(new View.OnClickListener(){
+            @SuppressLint("SimpleDateFormat")
             @Override
             public void onClick(View v){
-                ItemModel itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), selectedItemText, storageDetails.getText().toString());
+
+                try{
+                    if(expiryDate.getText().toString().equals("")){
+                        ItemModel itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), selectedItemText, storageDetails.getText().toString());
+                    }else{
+                        try {
+                            convertDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiryDate.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        ItemModel itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), convertDate , selectedItemText, storageDetails.getText().toString());
+                    }
+                } catch (Exception e){
+                    Toast.makeText(AddActivity.this, "Error in making item", Toast.LENGTH_SHORT).show();
+                }
+                
             }
         });
 
