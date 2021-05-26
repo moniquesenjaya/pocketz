@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">pocketz</string>
     <string name="home">Home</string>
+    <string name="add_groceries">Add Groceries</string>
+    <string name="arrow">arrow</string>
+    <string name="item_name">Item Name</string>
+    <string name="quantity">Quantity</string>
+    <string name="enter_the_details_below">Enter the details below</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="storage_details">Storage Details</string>
+
+
 </resources>
