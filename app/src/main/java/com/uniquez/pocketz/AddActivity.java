@@ -26,38 +26,40 @@ import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
 
-    //Reference to buttons and texts views
-    ImageView mBack = findViewById(R.id.backArrow);
-    EditText itemName = findViewById(R.id.itemName);
-    EditText itemQty = findViewById(R.id.itemQty);
-    EditText expiryDate = findViewById(R.id.expiryDate);
-    EditText storageDetails = findViewById(R.id.storageDetails);
-    Button addButton = findViewById(R.id.addButton);
-    final Spinner spinner = (Spinner) findViewById(R.id.categoryList);
     String selectedItemText;
     Date convertDate;
 
-    // Initializing a String Array for drop down list (spinner)
-    String[] category = new String[]{
-            "Select a category...",
-            "Milk",
-            "Eggs",
-            "Snacks",
-            "Cheese",
-            "Fish",
-            "Chicken",
-            "Beef",
-            "Pork",
-            "Drinks",
-            "Vegetables",
-            "Fruits",
-            "Others"
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        //Reference to buttons and texts views
+        ImageView mBack = findViewById(R.id.backArrow);
+        EditText itemName = findViewById(R.id.itemName);
+        EditText itemQty = findViewById(R.id.itemQty);
+        EditText expiryDate = findViewById(R.id.expiryDate);
+        EditText storageDetails = findViewById(R.id.storageDetails);
+        Button addButton = findViewById(R.id.addButton);
+        final Spinner spinner = (Spinner) findViewById(R.id.categoryList);
+
+        // Initializing a String Array for drop down list (spinner)
+        String[] category = new String[]{
+                "Select a category...*",
+                "Milk",
+                "Eggs",
+                "Snacks",
+                "Cheese",
+                "Fish",
+                "Chicken",
+                "Beef",
+                "Pork",
+                "Drinks",
+                "Vegetables",
+                "Fruits",
+                "Others"
+        };
 
         //Setting the back button on the top of the page
         mBack.setOnClickListener(new View.OnClickListener() {
@@ -76,16 +78,9 @@ public class AddActivity extends AppCompatActivity {
                 this,R.layout.spinner_item,categoryList){
             @Override
             public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                // Disable the first item from Spinner
+                // First item will be use for hint
+                return position != 0;
             }
             @Override
             public View getDropDownView(int position, View convertView,
@@ -127,21 +122,38 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
+                ItemModel itemModel = null;
+
                 try{
-                    if(expiryDate.getText().toString().equals("")){
-                        ItemModel itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), selectedItemText, storageDetails.getText().toString());
+                    //check if exp date is avail
+                    if(expiryDate.getText() == null){
+                        itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), selectedItemText, storageDetails.getText().toString());
                     }else{
+                        //try to convert the date
                         try {
-                            convertDate = new SimpleDateFormat("dd/MM/yyyy").parse(expiryDate.getText().toString());
+                            convertDate = new SimpleDateFormat("yyyy/MM/dd").parse(expiryDate.getText().toString());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        ItemModel itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), convertDate , selectedItemText, storageDetails.getText().toString());
+                        itemModel = new ItemModel(itemName.getText().toString(), Integer.parseInt(itemQty.getText().toString()), convertDate , selectedItemText, storageDetails.getText().toString());
                     }
                 } catch (Exception e){
                     Toast.makeText(AddActivity.this, "Error in making item", Toast.LENGTH_SHORT).show();
                 }
-                
+
+                try{
+                    DatabaseHelper databaseHelper = new DatabaseHelper(AddActivity.this);
+                    boolean success = databaseHelper.addOne(itemModel);
+
+                    if (success){
+                        Toast.makeText(AddActivity.this, "Data added to the database", Toast.LENGTH_SHORT).show();
+                        Intent addIntent = new Intent(AddActivity.this, HomeActivity.class);
+                        startActivity(addIntent);
+                    }
+                }catch(Exception e){
+                    Toast.makeText(AddActivity.this, "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
