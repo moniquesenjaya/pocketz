@@ -1,7 +1,6 @@
 package com.uniquez.pocketz;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.item_name_display.setText(String.valueOf(item_name.get(position)));
         holder.item_qty_display.setText(String.valueOf(item_qty.get(position)));
-        if (item_exp.get(position).equals("0")){
+        if (String.valueOf(item_exp.get(position)).equals("0")){
             holder.item_exp_display.setText("");
         }else{
             holder.item_exp_display.setText(String.valueOf(item_exp.get(position)));

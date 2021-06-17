@@ -74,6 +74,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
         }
         return cursor;
     }
+    
+    Cursor readGroceryList(){
+        String query = "SELECT " + COLUMN_ITEM_CATEGORY + " , SUM(" + COLUMN_ITEM_QTY + ")" + " FROM " + ITEM_TABLE + " GROUP BY " + COLUMN_ITEM_CATEGORY;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
 
     boolean updateData(ItemModel item){
         SQLiteDatabase db = this.getWritableDatabase();

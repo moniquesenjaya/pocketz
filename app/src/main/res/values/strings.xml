@@ -8,6 +8,11 @@
     <string name="enter_the_details_below">Enter the details below</string>
     <string name="expiry_date">Expiry Date (YYYY-MM-DD)</string>
     <string name="storage_details">Storage Details*</string>
+    <string name="grocery_list">Grocery List</string>
+    <string name="your_inventory">Your Inventory</string>
+    <string name="items_near_expiry">Items Near Expiry</string>
+    <string name="items_will_expire_in_7_days">Items that will expire in 7 days</string>
+    <string name="no_items">No items</string>
 
 
 </resources>

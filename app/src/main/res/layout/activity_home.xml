@@ -34,12 +34,67 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/groceryButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:text="Grocery List"
+      android:textSize="13dp"
+      app:layout_constraintEnd_toStartOf="@+id/expiryButton"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/addButton" />
+
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/expiryButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:text="near expiry!!"
+      android:textSize="13dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/groceryButton"
+      app:layout_constraintTop_toBottomOf="@+id/addButton" />
+
+  <TextView
+      android:id="@+id/instruction"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="15dp"
+      android:layout_marginTop="10dp"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      android:text="@string/your_inventory"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/expiryButton"
+      tools:ignore="RtlSymmetry" />
+
+  <TextView
+      android:id="@+id/no_data"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="15dp"
+      android:layout_marginTop="60dp"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      android:text="No data in inventory"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:visibility="invisible"
+      app:layout_constraintTop_toBottomOf="@+id/expiryButton"
+      tools:ignore="RtlSymmetry" />
+
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recyclerView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginTop="160dp"
+      android:layout_marginTop="270dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/addButton" />
+      app:layout_constraintTop_toBottomOf="@+id/expiryButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

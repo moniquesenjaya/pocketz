@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -23,6 +24,8 @@ public class HomeActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     Button mButton;
+    Button gButton;
+    Button eButton;
 
     String finalDate;
 
@@ -50,6 +53,25 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        gButton = findViewById(R.id.groceryButton);
+        gButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent addIntent = new Intent(HomeActivity.this, GroceryActivity.class);
+                startActivity(addIntent);
+            }
+        });
+
+        eButton = findViewById(R.id.expiryButton);
+        eButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent expiryIntent = new Intent(HomeActivity.this, ExpiryActivity.class);
+                startActivity(expiryIntent);
+            }
+        });
+
         recyclerView = findViewById(R.id.recyclerView);
 
         db = new DatabaseHelper(HomeActivity.this);
@@ -72,6 +94,11 @@ public class HomeActivity extends AppCompatActivity {
         customAdapter = new CustomAdapter(HomeActivity.this, item_name, item_qty, item_exp, item_category, item_storage);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+
+        if (customAdapter.getItemCount() == 0){
+            TextView instruct = findViewById(R.id.no_data);
+            instruct.setVisibility(View.VISIBLE);
+        }
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
