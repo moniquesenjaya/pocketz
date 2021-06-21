@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -25,7 +24,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
     //first time a database is accessed
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + ITEM_TABLE + " (" + COLUMN_ITEM_NAME + " TEXT, " + COLUMN_ITEM_QTY + " INT, " + COLUMN_ITEM_EXP + " TEXT, " + COLUMN_ITEM_CATEGORY + " TEXT, " + COLUMN_ITEM_STORAGE + " TEXT)";
+        String createTableStatement = "CREATE TABLE " +
+                ITEM_TABLE + " (" +
+                COLUMN_ITEM_NAME + " TEXT, " +
+                COLUMN_ITEM_QTY + " INT, " +
+                COLUMN_ITEM_EXP + " TEXT, " +
+                COLUMN_ITEM_CATEGORY + " TEXT, " +
+                COLUMN_ITEM_STORAGE + " TEXT)";
 
         db.execSQL(createTableStatement);
     }
@@ -36,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
     }
 
+    //called when there are data that will be inserted to DB
     @Override
     public boolean addOne (ItemModel itemModel){
 
@@ -76,7 +82,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
     }
     
     Cursor readGroceryList(){
-        String query = "SELECT " + COLUMN_ITEM_CATEGORY + " , SUM(" + COLUMN_ITEM_QTY + ")" + " FROM " + ITEM_TABLE + " GROUP BY " + COLUMN_ITEM_CATEGORY;
+        String query = "SELECT " + COLUMN_ITEM_CATEGORY +
+                " , SUM(" + COLUMN_ITEM_QTY + ")" +
+                " FROM " + ITEM_TABLE + " GROUP BY " +
+                COLUMN_ITEM_CATEGORY;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -90,7 +99,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ITEM_QTY, (item.getQty()-1));
-        long result = db.update(ITEM_TABLE, cv, "ITEM_NAME=? AND ITEM_CATEGORY=? AND ITEM_STORAGE=?", new String[] {item.getName(), item.getCategory(), item.getStorage()});
+        long result = db.update(ITEM_TABLE,
+                cv,
+                "ITEM_NAME=? AND ITEM_CATEGORY=? AND ITEM_STORAGE=?",
+                new String[] {item.getName(), item.getCategory(), item.getStorage()});
         return result != -1;
     }
 }

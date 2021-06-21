@@ -121,9 +121,7 @@ public class AddActivity extends AppCompatActivity {
             @SuppressLint("SimpleDateFormat")
             @Override
             public void onClick(View v){
-
                 ItemModel itemModel = null;
-
                 try{
                     //check if exp date is avail
                     if(expiryDate.getText() == null){
@@ -140,7 +138,6 @@ public class AddActivity extends AppCompatActivity {
                 } catch (Exception e){
                     Toast.makeText(AddActivity.this, "Error in making item", Toast.LENGTH_SHORT).show();
                 }
-
                 try{
                     DatabaseHelper databaseHelper = new DatabaseHelper(AddActivity.this);
                     boolean success = databaseHelper.addOne(itemModel);

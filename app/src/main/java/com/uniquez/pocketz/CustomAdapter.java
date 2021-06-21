@@ -43,7 +43,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             holder.item_exp_display.setText(String.valueOf(item_exp.get(position)));
         }
         holder.item_storage_display.setText(String.valueOf(item_storage.get(position)));
-        holder.itemView.setTag(new ItemModel(String.valueOf(item_name.get(position)), (Integer) item_qty.get(position), String.valueOf(item_category.get(position)), String.valueOf(item_storage.get(position))));
+        holder.itemView.setTag(new ItemModel(String.valueOf(item_name.get(position)),
+                (Integer) item_qty.get(position), String.valueOf(item_category.get(position)),
+                String.valueOf(item_storage.get(position))));
     }
 
     @Override

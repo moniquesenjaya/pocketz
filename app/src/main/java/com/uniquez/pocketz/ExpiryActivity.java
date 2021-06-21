@@ -85,12 +85,9 @@ public class ExpiryActivity extends AppCompatActivity {
             Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
         }else{
             while (cursor.moveToNext()){
-
                 Calendar calendar = Calendar.getInstance();
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 Object date = dateFormat.format(calendar.getTime());
-
                 if(cursor.getInt(1) != 0){
                     if (cursor.getString(2).equals("0")){
                         item_exp.add("0");

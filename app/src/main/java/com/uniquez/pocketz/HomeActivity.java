@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //Button to go to add activity
         mButton = findViewById(R.id.addButton);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //Button to go to grocery activity
         gButton = findViewById(R.id.groceryButton);
         gButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //Button to go to expiry activity
         eButton = findViewById(R.id.expiryButton);
         eButton.setOnClickListener(new View.OnClickListener() {
             @Override
